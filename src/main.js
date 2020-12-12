@@ -1,5 +1,7 @@
 // アプリケーション作成用のモジュールを読み込み
 const {app, BrowserWindow} = require('electron');
+// const jsdom = require("jsdom");
+const serialPort = require('serialport');
 
 // メインウィンドウ
 let mainWindow;
@@ -19,6 +21,26 @@ function createWindow() {
 
   // デベロッパーツールの起動
   mainWindow.webContents.openDevTools();
+
+
+  serialPort.list().then(ports => {
+    ports.forEach(function(port) {
+      console.log(port.path);
+      console.log(port.pnpId);
+      console.log(port.manufacturer);
+    });
+  });
+
+  serialPort.list(function(err, ports) {
+    ports.forEach(function(port){
+      console.log(port);
+    });
+  });
+
+//   const dom = new jsdom.JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
+//   dom.window.print({silent:true, printBackground:true, deviceName:"Microsoft Print to PDF"});
+//   let doc = domparser.parseFromString('<html><body>Hello<br>World!!</body></html>', "text/html");
+//   doc.print({silent:true, printBackground:true, deviceName:"Microsoft Print to PDF"});
 
   // メインウィンドウが閉じられたときの処理
   mainWindow.on('closed', () => {
