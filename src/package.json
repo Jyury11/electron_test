@@ -4,6 +4,9 @@
         "serialport": "^9.0.3"
     },
     "devDependencies": {
-        "electron-rebuild": "^2.3.4"
+        "electron-rebuild": "^2.3.4",
+        "ffi-napi": "^3.1.0",
+        "node-printer": "^1.0.4",
+        "ref-napi": "^3.0.1"
     }
 }

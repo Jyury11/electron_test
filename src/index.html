@@ -9,5 +9,29 @@
   We are using node <script>document.write(process.versions.node)</script>,
   Chrome <script>document.write(process.versions.chrome)</script>,
   and Electron <script>document.write(process.versions.electron)</script>.
+  <script>
+    const {app, BrowserWindow} = require('electron');
+    const ffi = require('ffi-napi');
+    const ref = require('ref-napi');
+    const serialPort = require('serialport');
+
+    var dllSamplePath = "DllSample.dll";
+    var dllSample = ffi.Library(dllSamplePath, {
+        'HelloWorld': ['string', []]
+    });
+
+    var result = dllSample.HelloWorld();
+    alert(result);
+
+    app.allowRendererProcessReuse = false;
+    serialPort.list().then(ports => {
+    ports.forEach(function(port) {
+      console.log(port.path);
+      console.log(port.pnpId);
+      console.log(port.manufacturer);
+    });
+    app.allowRendererProcessReuse = true;
+  });
+</script>
 </body>
 </html>
